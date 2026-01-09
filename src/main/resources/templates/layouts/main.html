@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+	<head>
+		<title layout:title-pattern="$CONTENT_TITLE - Vocabulary">Vocabulary</title>
+		<link th:href="@{/css/style.css}" rel="stylesheet"/>
+	</head>
+
+	<body>
+
+		<!-- Header -->
+		<header th:replace="fragments/header :: header"></header>
+
+		<!-- Content -->
+		<main layout:fragment="content"></main>
+
+		<!-- Footer -->
+		<footer th:replace="fragments/footer :: footer"></footer>
+
+	</body>
+</html>
