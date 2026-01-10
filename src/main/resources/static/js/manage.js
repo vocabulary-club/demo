@@ -12,6 +12,22 @@ var manageApp = {
 	    this.getVocDic();
 
 	    this.initTable();
+
+        window.addEventListener("resize", () => {
+            manageApp.table.redraw();
+        });
+
+        const modal = document.getElementById("modal");
+        document.getElementById("btnCreate").onclick = () => {
+            modal.classList.remove("hide");
+        };
+        document.getElementById("btnModalSave").onclick = () => {
+            modal.classList.add("hide");
+        };
+        document.getElementById("btnModalCancel").onclick = () => {
+            modal.classList.add("hide");
+        };
+        
 	},
 
     getVocDic : function() {
@@ -36,7 +52,7 @@ var manageApp = {
             {id:8, name:"Mary May", progress:1, gender:"female", rating:2, col:"blue", dob:"14/05/1982", car:true},
             {id:9, name:"Christine Lobowski", progress:42, gender:"female", rating:0, col:"green", dob:"22/05/1982", car:"true"},
             {id:10, name:"Brendon Philips", progress:100, gender:"male", rating:1, col:"orange", dob:"01/08/1980"},
-            /*{id:11, name:"Margret Marmajuke", progress:16, gender:"female", rating:5, col:"yellow", dob:"31/01/1999"},
+            {id:11, name:"Margret Marmajuke", progress:16, gender:"female", rating:5, col:"yellow", dob:"31/01/1999"},
             {id:12, name:"Frank Harbours", progress:38, gender:"male", rating:4, col:"red", dob:"12/05/1966", car:1},
             {id:13, name:"Oli Bob", progress:12, gender:"male", rating:1, col:"red", dob:"19/02/1984", car:1},
             {id:14, name:"Mary May", progress:1, gender:"female", rating:2, col:"blue", dob:"14/05/1982", car:true},
@@ -55,7 +71,7 @@ var manageApp = {
             {id:27, name:"Christine Lobowski", progress:42, gender:"female", rating:0, col:"green", dob:"22/05/1982", car:"true"},
             {id:28, name:"Brendon Philips", progress:100, gender:"male", rating:1, col:"orange", dob:"01/08/1980"},
             {id:29, name:"Margret Marmajuke", progress:16, gender:"female", rating:5, col:"yellow", dob:"31/01/1999"},
-            {id:30, name:"Frank Harbours", progress:38, gender:"male", rating:4, col:"red", dob:"12/05/1966", car:1},*/
+            {id:30, name:"Frank Harbours", progress:38, gender:"male", rating:4, col:"red", dob:"12/05/1966", car:1},
         ];
 
         this.table = new Tabulator("#table", {
