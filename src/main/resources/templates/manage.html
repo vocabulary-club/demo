@@ -8,9 +8,34 @@
 	</head>
 
 	<body>
-		<section layout:fragment="content">
-			<h2>Manage Page</h2>
-			<p>Do manage here.</p>
+		<section layout:fragment="content" class="manage-page">
+
+			<div class="toolbar">
+				<input type="text" placeholder="Search input"/>
+
+				<button>Select</button>
+				<button>Create</button>
+				<button>Update</button>
+				<button>Cancel</button>
+				<button>Delete</button>
+			</div>
+
+			<div class="table-wrapper">
+				<div id="table"></div>
+			</div>
+
 		</section>
+
+		<!--<div class="modal">
+
+			<input type="text" class="modal-input" placeholder="word input 1">
+			<input type="text" class="modal-input" placeholder="word input 1">
+
+			<div class="modal-actions">
+				<button class="btn">Save</button>
+				<button class="btn">Cancel</button>
+			</div>
+		</div>-->
+
 	</body>
 </html>
