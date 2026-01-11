@@ -4,11 +4,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var manageApp = {
 
+    pv : null,
     table : null,
 		
 	init : function() {
 
-        console.log("manage app")
+        this.pv = pv;
+
 	    this.getVocDic();
 
 	    this.initTable();
@@ -16,18 +18,35 @@ var manageApp = {
         window.addEventListener("resize", () => {
             manageApp.table.redraw();
         });
-
-        const modal = document.getElementById("modal");
-        document.getElementById("btnCreate").onclick = () => {
-            modal.classList.add("show");
-        };
-        document.getElementById("btnModalSave").onclick = () => {
-            modal.classList.remove("show");
-        };
-        document.getElementById("btnModalCancel").onclick = () => {
-            modal.classList.remove("show");
-        };
         
+        const btnSelect = document.getElementById(`btnSelect${this.pv}`);
+        const btnCreate = document.getElementById(`btnCreate${this.pv}`);
+        const btnUpdate = document.getElementById(`btnUpdate${this.pv}`);
+        const btnCancel = document.getElementById(`btnCancel${this.pv}`);
+        const btnDelete = document.getElementById(`btnDelete${this.pv}`);
+
+        const modal = document.getElementById(`modal${this.pv}`);
+        const h2ModalTitle = document.getElementById(`h2ModalTitle${this.pv}`);
+        const inModalEnglish = document.getElementById(`inModalEnglish${this.pv}`);
+        const inModalMongolian = document.getElementById(`inModalMongolian${this.pv}`);
+        const btnModalSave = document.getElementById(`btnModalSave${this.pv}`);
+        const btnModalCancel = document.getElementById(`btnModalCancel${this.pv}`);
+
+        btnCreate.addEventListener("click", function() {
+            h2ModalTitle.textContent = "Create Vocabulary";
+            modal.classList.add("show");
+        });
+        btnUpdate.addEventListener("click", function() {
+            h2ModalTitle.textContent = "Update Vocabulary";
+            modal.classList.add("show");
+        });
+        btnModalSave.addEventListener("click", function() {
+            modal.classList.remove("show");
+        });
+        btnModalCancel.addEventListener("click", function() {
+            modal.classList.remove("show");
+        });
+
 	},
 
     getVocDic : function() {
@@ -74,7 +93,7 @@ var manageApp = {
             {id:30, name:"Frank Harbours", progress:38, gender:"male", rating:4, col:"red", dob:"12/05/1966", car:1},
         ];
 
-        this.table = new Tabulator("#table", {
+        this.table = new Tabulator(`#table${this.pv}`, {
             data:tabledata,           //load row data from array
             layout:"fitColumns",      //fit columns to width of table
             responsiveLayout:"hide",  //hide columns that don't fit on the table

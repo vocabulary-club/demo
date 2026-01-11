@@ -13,7 +13,8 @@ public class PageController {
 	}
 
 	@GetMapping("/manage")
-	public String manage() {
+	public String manage(Model model) {
+		model.addAttribute("pv", "manage");
 		return "manage";
 	}
 

@@ -4,6 +4,9 @@
 	  layout:decorate="layouts/main">
 <head>
 	<script th:src="@{/js/manage.js}"></script>
+	<script th:inline="javascript">
+		const pv = [[${pv}]];
+	</script>
 </head>
 <body>
 <section layout:fragment="content">
@@ -12,32 +15,32 @@
 		<div class="toolbar">
 			<input type="text" placeholder="Search input"/>
 
-			<button class="toolbar-btn">Select</button>
-			<button class="toolbar-btn" id="btnCreate">Create</button>
-			<button class="toolbar-btn">Update</button>
-			<button class="toolbar-btn">Cancel</button>
-			<button class="toolbar-btn">Delete</button>
+			<button class="toolbar-btn" th:id="'btnSelect'+${pv}">Select</button>
+			<button class="toolbar-btn" th:id="'btnCreate'+${pv}">Create</button>
+			<button class="toolbar-btn" th:id="'btnUpdate'+${pv}">Update</button>
+			<button class="toolbar-btn" th:id="'btnCancel'+${pv}">Cancel</button>
+			<button class="toolbar-btn" th:id="'btnDelete'+${pv}">Delete</button>
 		</div>
 
 		<div class="table-wrapper">
-			<div id="table"></div>
+			<div th:id="'table'+${pv}"></div>
 		</div>
 	</div>
 
-	<div class="modal-wrapper" id="modal">
+	<div class="modal-wrapper" th:id="'modal'+${pv}">
 		<div class="modal">
 			<div class="modal-body">
 				<div class="modal-header">
-					<h2>Create Vocabulary</h2>
+					<h2 th:id="'h2ModalTitle'+${pv}">Create Vocabulary</h2>
 				</div>
 				<div class="modal-content">
-					<input type="text" placeholder="Input English"/>
+					<input type="text" th:id="'inModalEnglish'+${pv}" placeholder="Input English"/>
 					<br><br>
-					<input type="text" placeholder="Input Mongolian"/>
+					<input type="text" th:id="'inModalMongolian'+${pv}" placeholder="Input Mongolian"/>
 				</div>
 				<div class="modal-footer">
-					<button class="modal-btn" id="btnModalSave">Save</button>
-					<button class="modal-btn" id="btnModalCancel">Cancel</button>
+					<button class="modal-btn" th:id="'btnModalSave'+${pv}">Save</button>
+					<button class="modal-btn" th:id="'btnModalCancel'+${pv}">Cancel</button>
 				</div>
 			</div>					
 		</div>
