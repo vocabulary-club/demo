@@ -12,8 +12,23 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <h2>Home Page</h2>
-    <p>This is home content.</p>
+    
+    <div class="content-wrapper">
+		<div class="toolbar">			
+            <label><input type="radio" name="language" value="english" checked>English</label>
+            <label><input type="radio" name="language" value="mongolian">Mongolian</label>
+
+			<button class="toolbar-btn" th:id="'btnStart'+${pv}">Start</button>
+			<button class="toolbar-btn" th:id="'btnPrev'+${pv}">Prev</button>
+			<button class="toolbar-btn" th:id="'btnNext'+${pv}">Next</button>
+            <button class="toolbar-btn" th:id="'btnCheck'+${pv}">Check</button>
+		</div>
+
+		<div class="word-wrapper">
+			
+		</div>
+	</div>
+
 </section>
 </body>
 </html>
