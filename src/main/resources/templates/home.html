@@ -3,14 +3,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layouts/main">
 
-    <head>
-        <title>Home</title>
-        <script th:src="@{/js/home.js}"></script>
-    </head>
-
-    <section layout:fragment="content">
-        <h2>Home Page</h2>
-        <p>This is home content.</p>
-    </section>
-
+<head>
+    <title>Home</title>
+    <script th:src="@{/js/home.js}"></script>
+    <script th:inline="javascript">
+        const pv = [[${pv}]];
+    </script>
+</head>
+<body>
+<section layout:fragment="content">
+    <h2>Home Page</h2>
+    <p>This is home content.</p>
+</section>
+</body>
 </html>

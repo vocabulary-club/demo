@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.repository.MainRepository;
+import com.example.demo.repository.HomeRepository;
 import com.example.demo.repository.ManageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;

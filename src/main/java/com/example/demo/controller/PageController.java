@@ -9,6 +9,7 @@ public class PageController {
 
 	@GetMapping("/")
 	public String home(Model model) {
+		model.addAttribute("pv", "manage");
 		return "home";
 	}
 
