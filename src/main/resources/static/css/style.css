@@ -19,7 +19,7 @@ button:hover { background-color: #333c; color: #fffc; }
 button:active { background-color: #3333; color: #ffff; }
 label { background-color: #333c; color: #ffff; padding: 12px 16px; 
     border-radius: 8px; border: none; font-size: 16px; cursor: pointer; }
-label input { margin-right: 16px; }
+label input { margin-right: 8px; }
 
 .table-wrapper { border-radius: 8px; flex: 1; min-height: 0; }
 .tabulator { height: 100% !important; }
@@ -33,3 +33,6 @@ label input { margin-right: 16px; }
 .modal-content input { width: calc(100% - 40px); }
 
 .show { display: block; }
+
+.word-wrapper { border-radius: 8px; flex: 1; min-height: 0; }
+.word { padding: 12px 16px; font-size: 24px; }

@@ -17,15 +17,28 @@
 		<div class="toolbar">			
             <label><input type="radio" name="language" value="english" checked>English</label>
             <label><input type="radio" name="language" value="mongolian">Mongolian</label>
+            <label><input type="radio" name="language" value="both">Both</label>
 
 			<button class="toolbar-btn" th:id="'btnStart'+${pv}">Start</button>
-			<button class="toolbar-btn" th:id="'btnPrev'+${pv}">Prev</button>
-			<button class="toolbar-btn" th:id="'btnNext'+${pv}">Next</button>
+			<button class="toolbar-btn" th:id="'btnPause'+${pv}">Pause</button>
+			<button class="toolbar-btn" th:id="'btnStop'+${pv}">Stop</button>
             <button class="toolbar-btn" th:id="'btnCheck'+${pv}">Check</button>
+
+            <label><input type="radio" name="time" value="3">3sec</label>
+            <label><input type="radio" name="time" value="5" checked>5sec</label>
+            <label><input type="radio" name="time" value="10">10sec</label>
 		</div>
 
 		<div class="word-wrapper">
-			
+            <div class="word">
+                <p th:id="'engWord'+${pv}"></p>
+            </div>
+            <div class="word">
+                <p th:id="'monWord'+${pv}"></p>
+            </div>
+            <div class="word">
+                <p th:id="'regDate'+${pv}"></p>
+            </div>
 		</div>
 	</div>
 
