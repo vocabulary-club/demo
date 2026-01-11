@@ -2,43 +2,46 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="layouts/main">
+<head>
+	<script th:src="@{/js/manage.js}"></script>
+</head>
+<body>
+<section layout:fragment="content">
 
-	<head>
-		<script th:src="@{/js/manage.js}"></script>
-	</head>
+	<div class="content-wrapper">
+		<div class="toolbar">
+			<input type="text" placeholder="Search input"/>
 
-	<body>
-		<section layout:fragment="content">
+			<button class="toolbar-btn">Select</button>
+			<button class="toolbar-btn" id="btnCreate">Create</button>
+			<button class="toolbar-btn">Update</button>
+			<button class="toolbar-btn">Cancel</button>
+			<button class="toolbar-btn">Delete</button>
+		</div>
 
-			<div class="content-wrapper">
-				<div class="toolbar">
-					<input type="text" placeholder="Search input"/>
+		<div class="table-wrapper">
+			<div id="table"></div>
+		</div>
+	</div>
 
-					<button class="toolbar-btn">Select</button>
-					<button class="toolbar-btn" id="btnCreate">Create</button>
-					<button class="toolbar-btn">Update</button>
-					<button class="toolbar-btn">Cancel</button>
-					<button class="toolbar-btn">Delete</button>
+	<div class="modal-wrapper" id="modal">
+		<div class="modal">
+			<div class="modal-body">
+				<div class="modal-header">
+					<h2>Create Vocabulary</h2>
 				</div>
-
-				<div class="table-wrapper">
-					<div id="table"></div>
+				<div class="modal-content">
+					<input type="text" placeholder="Input English"/>
+					<br><br>
+					<input type="text" placeholder="Input Mongolian"/>
 				</div>
-			</div>
-
-			<div class="modal-wrapper hide" id="modal">
-				<div class="modal">
-					<input type="text" class="modal-input" placeholder="word input 1">
-					<input type="text" class="modal-input" placeholder="word input 1">
-
-					<div class="modal-actions">
-						<button class="modal-btn" id="btnModalSave">Save</button>
-						<button class="modal-btn" id="btnModalCancel">Cancel</button>
-					</div>
+				<div class="modal-footer">
+					<button class="modal-btn" id="btnModalSave">Save</button>
+					<button class="modal-btn" id="btnModalCancel">Cancel</button>
 				</div>
-			</div>
-
-		</section>
-
-	</body>
+			</div>					
+		</div>
+	</div>
+</section>
+</body>
 </html>

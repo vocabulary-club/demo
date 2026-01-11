@@ -19,13 +19,13 @@ var manageApp = {
 
         const modal = document.getElementById("modal");
         document.getElementById("btnCreate").onclick = () => {
-            modal.classList.remove("hide");
+            modal.classList.add("show");
         };
         document.getElementById("btnModalSave").onclick = () => {
-            modal.classList.add("hide");
+            modal.classList.remove("show");
         };
         document.getElementById("btnModalCancel").onclick = () => {
-            modal.classList.add("hide");
+            modal.classList.remove("show");
         };
         
 	},
