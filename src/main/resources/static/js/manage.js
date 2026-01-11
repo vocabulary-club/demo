@@ -13,10 +13,6 @@ var manageApp = {
         this.pv = pv;
 
 	    this.initTable();
-
-        window.addEventListener("resize", () => {
-            manageApp.table.redraw();
-        });
         
         const inSearch = document.getElementById(`inSearch${this.pv}`);
 
@@ -49,8 +45,9 @@ var manageApp = {
             manageApp.update = 0;
             h2ModalTitle.textContent = "Create Vocabulary";
             inModalEngWord.value = "";
-            inModalMonWord.value = "";
+            inModalMonWord.value = "";            
             modal.classList.add("show");
+            inModalEngWord.focus();
         });
         btnUpdate.addEventListener("click", function() {
             manageApp.update = 1;
@@ -60,6 +57,7 @@ var manageApp = {
                 inModalEngWord.value = selected[0].eng_word;
                 inModalMonWord.value = selected[0].mon_word;
                 modal.classList.add("show");
+                inModalEngWord.focus();
             }
         });
         btnCancel.addEventListener("click", function() {
@@ -141,6 +139,23 @@ var manageApp = {
             modal.classList.remove("show");
         });
 
+        document.addEventListener("keydown", function (e) {
+            if (e.ctrlKey && e.code === "Space") {
+                e.preventDefault(); // try to block browser action
+                manageApp.update = 0;
+                h2ModalTitle.textContent = "Create Vocabulary";
+                inModalEngWord.value = "";
+                inModalMonWord.value = "";            
+                modal.classList.add("show");
+                inModalEngWord.focus();
+            }
+        });
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                e.preventDefault(); // try to block browser action
+                modal.classList.remove("show");
+            }
+        });
 	},
 
     selectVocDic : function() {
