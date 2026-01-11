@@ -3,6 +3,9 @@ package com.example.demo.service;
 import com.example.demo.repository.MainRepository;
 import com.example.demo.repository.ManageRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.Map;
 
 @Service
 public class ManageService {
@@ -13,9 +16,13 @@ public class ManageService {
         this.manageRepository = manageRepository;
     }
 
-    public Object getVocDic() {
+    public Object create(Map<String, Object> data) {
 
-        return manageRepository.getVocDic();
+        int nEngId = manageRepository.saveVocEng(data);
+        int nMonId = manageRepository.saveVocMon(data);
+        if(nEngId == 1 && nMonId == 1) {
+            return manageRepository.saveVocDic(data);
+        }
+        return 0;
     }
-
 }

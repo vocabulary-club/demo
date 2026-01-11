@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.repository.ManageRepository">
+
+    <insert id="saveVocEng" parameterType="map" useGeneratedKeys="true" keyProperty="eng_id">
+        insert into vocabulary.voc_eng (voc_word)
+        values(#{eng_word})
+    </insert>
+
+    <insert id="saveVocMon" parameterType="map" useGeneratedKeys="true" keyProperty="mon_id">
+        insert into vocabulary.voc_mon (voc_word)
+        values(#{mon_word})
+    </insert>
+
+    <insert id="saveVocDic" parameterType="map" useGeneratedKeys="true" keyProperty="div_id">
+        insert into vocabulary.voc_dic (eng_voc_id, mon_voc_id)
+        values(#{eng_id}, #{mon_id})
+    </insert>
+
+</mapper>

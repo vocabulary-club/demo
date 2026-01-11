@@ -8,5 +8,7 @@ import java.util.Map;
 @Mapper
 public interface ManageRepository {
 
-    List<Map<String, Object>> getVocDic();
+    int saveVocEng(Map<String, Object> data);
+    int saveVocMon(Map<String, Object> data);
+    int saveVocDic(Map<String, Object> data);
 }

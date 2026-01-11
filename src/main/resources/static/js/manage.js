@@ -41,6 +41,38 @@ var manageApp = {
             modal.classList.add("show");
         });
         btnModalSave.addEventListener("click", function() {
+            
+            if(!inModalEnglish.value || !inModalMongolian.value) {
+                alert("Enter your words!");
+                return;
+            }
+
+            const data = {
+                eng_word : inModalEnglish.value,
+                mon_word : inModalMongolian.value
+            };
+
+            fetch("/api/manage/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.json();
+            })
+            .then(function (data) {
+                console.log("result ", data)
+                alert("Saved successfully.");
+            })
+            .catch(function (error) {
+                alert("Failed to save.");
+            });
+
             modal.classList.remove("show");
         });
         btnModalCancel.addEventListener("click", function() {
