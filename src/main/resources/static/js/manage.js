@@ -6,12 +6,11 @@ var manageApp = {
 
     pv : null,
     table : null,
+    update : 0,
 		
 	init : function() {
 
         this.pv = pv;
-
-	    this.getVocDic();
 
 	    this.initTable();
 
@@ -19,6 +18,8 @@ var manageApp = {
             manageApp.table.redraw();
         });
         
+        const inSearch = document.getElementById(`inSearch${this.pv}`);
+
         const btnSelect = document.getElementById(`btnSelect${this.pv}`);
         const btnCreate = document.getElementById(`btnCreate${this.pv}`);
         const btnUpdate = document.getElementById(`btnUpdate${this.pv}`);
@@ -27,32 +28,94 @@ var manageApp = {
 
         const modal = document.getElementById(`modal${this.pv}`);
         const h2ModalTitle = document.getElementById(`h2ModalTitle${this.pv}`);
-        const inModalEnglish = document.getElementById(`inModalEnglish${this.pv}`);
-        const inModalMongolian = document.getElementById(`inModalMongolian${this.pv}`);
+        const inModalEngWord = document.getElementById(`inModalEngWord${this.pv}`);
+        const inModalMonWord = document.getElementById(`inModalMonWord${this.pv}`);
         const btnModalSave = document.getElementById(`btnModalSave${this.pv}`);
         const btnModalCancel = document.getElementById(`btnModalCancel${this.pv}`);
 
+        inSearch.addEventListener("input", function(e) {
+            const v = e.target.value.toLowerCase();
+            manageApp.table.setFilter(function (data) {
+                return (
+                    data.eng_word?.toLowerCase().includes(v) ||
+                    data.mon_word?.toLowerCase().includes(v)
+                );
+            });
+        });
+        btnSelect.addEventListener("click", function() {
+            manageApp.selectVocDic();            
+        });
         btnCreate.addEventListener("click", function() {
+            manageApp.update = 0;
             h2ModalTitle.textContent = "Create Vocabulary";
+            inModalEngWord.value = "";
+            inModalMonWord.value = "";
             modal.classList.add("show");
         });
         btnUpdate.addEventListener("click", function() {
+            manageApp.update = 1;
             h2ModalTitle.textContent = "Update Vocabulary";
-            modal.classList.add("show");
+            const selected = manageApp.table.getSelectedData();
+            if(selected.length) {
+                inModalEngWord.value = selected[0].eng_word;
+                inModalMonWord.value = selected[0].mon_word;
+                modal.classList.add("show");
+            }
+        });
+        btnCancel.addEventListener("click", function() {
+            manageApp.table.deselectRow();
+            manageApp.table.clearFilter();
+        });
+        btnDelete.addEventListener("click", function() {
+            const selected = manageApp.table.getSelectedData();
+            if(selected.length) {
+                const data = {
+                    dic_id : selected[0].dic_id,
+                    eng_id : selected[0].eng_id,
+                    mon_id : selected[0].mon_id,
+                };
+                fetch("/api/manage/delete", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error("HTTP error " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(function (data) {
+                    manageApp.selectVocDic();
+                })
+                .catch(function (error) {
+                    alert("Failed to save.");
+                });
+            }
         });
         btnModalSave.addEventListener("click", function() {
             
-            if(!inModalEnglish.value || !inModalMongolian.value) {
+            if(!inModalEngWord.value || !inModalMonWord.value) {
                 alert("Enter your words!");
                 return;
             }
 
             const data = {
-                eng_word : inModalEnglish.value,
-                mon_word : inModalMongolian.value
+                eng_word : inModalEngWord.value,
+                mon_word : inModalMonWord.value
             };
 
-            fetch("/api/manage/create", {
+            let url = "/create";
+            if(manageApp.update == 1) {
+                url = "/update";
+                const selected = manageApp.table.getSelectedData();
+                data.eng_id = selected[0].eng_id;
+                data.mon_id = selected[0].mon_id;
+            }
+
+            fetch("/api/manage" + url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -66,8 +129,7 @@ var manageApp = {
                 return response.json();
             })
             .then(function (data) {
-                console.log("result ", data)
-                alert("Saved successfully.");
+                manageApp.selectVocDic();
             })
             .catch(function (error) {
                 alert("Failed to save.");
@@ -81,76 +143,59 @@ var manageApp = {
 
 	},
 
-    getVocDic : function() {
-        fetch('/api/main/getVocDic')
+    selectVocDic : function() {
+        fetch('/api/manage/selectVocDic')
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                manageApp.table.setData(data); 
             })
             .catch(error => console.error('Error fetching data:', error));
     },
 
     initTable : function() {
 
-        var tabledata = [
-            {id:1, name:"Oli Bob", progress:12, gender:"male", rating:1, col:"red", dob:"19/02/1984", car:1},
-            {id:2, name:"Mary May", progress:1, gender:"female", rating:2, col:"blue", dob:"14/05/1982", car:true},
-            {id:3, name:"Christine Lobowski", progress:42, gender:"female", rating:0, col:"green", dob:"22/05/1982", car:"true"},
-            {id:4, name:"Brendon Philips", progress:100, gender:"male", rating:1, col:"orange", dob:"01/08/1980"},
-            {id:5, name:"Margret Marmajuke", progress:16, gender:"female", rating:5, col:"yellow", dob:"31/01/1999"},
-            {id:6, name:"Frank Harbours", progress:38, gender:"male", rating:4, col:"red", dob:"12/05/1966", car:1},
-            {id:7, name:"Oli Bob", progress:12, gender:"male", rating:1, col:"red", dob:"19/02/1984", car:1},
-            {id:8, name:"Mary May", progress:1, gender:"female", rating:2, col:"blue", dob:"14/05/1982", car:true},
-            {id:9, name:"Christine Lobowski", progress:42, gender:"female", rating:0, col:"green", dob:"22/05/1982", car:"true"},
-            {id:10, name:"Brendon Philips", progress:100, gender:"male", rating:1, col:"orange", dob:"01/08/1980"},
-            {id:11, name:"Margret Marmajuke", progress:16, gender:"female", rating:5, col:"yellow", dob:"31/01/1999"},
-            {id:12, name:"Frank Harbours", progress:38, gender:"male", rating:4, col:"red", dob:"12/05/1966", car:1},
-            {id:13, name:"Oli Bob", progress:12, gender:"male", rating:1, col:"red", dob:"19/02/1984", car:1},
-            {id:14, name:"Mary May", progress:1, gender:"female", rating:2, col:"blue", dob:"14/05/1982", car:true},
-            {id:15, name:"Christine Lobowski", progress:42, gender:"female", rating:0, col:"green", dob:"22/05/1982", car:"true"},
-            {id:16, name:"Brendon Philips", progress:100, gender:"male", rating:1, col:"orange", dob:"01/08/1980"},
-            {id:17, name:"Margret Marmajuke", progress:16, gender:"female", rating:5, col:"yellow", dob:"31/01/1999"},
-            {id:18, name:"Frank Harbours", progress:38, gender:"male", rating:4, col:"red", dob:"12/05/1966", car:1},
-            {id:19, name:"Oli Bob", progress:12, gender:"male", rating:1, col:"red", dob:"19/02/1984", car:1},
-            {id:20, name:"Mary May", progress:1, gender:"female", rating:2, col:"blue", dob:"14/05/1982", car:true},
-            {id:21, name:"Christine Lobowski", progress:42, gender:"female", rating:0, col:"green", dob:"22/05/1982", car:"true"},
-            {id:22, name:"Brendon Philips", progress:100, gender:"male", rating:1, col:"orange", dob:"01/08/1980"},
-            {id:23, name:"Margret Marmajuke", progress:16, gender:"female", rating:5, col:"yellow", dob:"31/01/1999"},
-            {id:24, name:"Frank Harbours", progress:38, gender:"male", rating:4, col:"red", dob:"12/05/1966", car:1},
-            {id:25, name:"Oli Bob", progress:12, gender:"male", rating:1, col:"red", dob:"19/02/1984", car:1},
-            {id:26, name:"Mary May", progress:1, gender:"female", rating:2, col:"blue", dob:"14/05/1982", car:true},
-            {id:27, name:"Christine Lobowski", progress:42, gender:"female", rating:0, col:"green", dob:"22/05/1982", car:"true"},
-            {id:28, name:"Brendon Philips", progress:100, gender:"male", rating:1, col:"orange", dob:"01/08/1980"},
-            {id:29, name:"Margret Marmajuke", progress:16, gender:"female", rating:5, col:"yellow", dob:"31/01/1999"},
-            {id:30, name:"Frank Harbours", progress:38, gender:"male", rating:4, col:"red", dob:"12/05/1966", car:1},
-        ];
-
         this.table = new Tabulator(`#table${this.pv}`, {
-            data:tabledata,           //load row data from array
+            selectableRows:1,
             layout:"fitColumns",      //fit columns to width of table
             responsiveLayout:"hide",  //hide columns that don't fit on the table
             addRowPos:"top",          //when adding a new row, add it to the top of the table
             history:true,             //allow undo and redo actions on the table
             pagination:"local",       //paginate the data
-            paginationSize:100,         //allow 7 rows per page of data
+            paginationSize:32,         //allow 7 rows per page of data
             paginationCounter:"rows", //display count of paginated rows in footer
             movableColumns:true,      //allow column order to be changed
-//            height: "100%",           // 🔴 REQUIRED
             initialSort:[             //set the initial sort order of the data
-                {column:"name", dir:"asc"},
+                {column:"reg_date", dir:"desc"},
             ],
             columnDefaults:{
                 tooltip:true,         //show tool tips on cells
             },
             columns:[                 //define the table columns
-                {title:"Name", field:"name", editor:"input"},
-                {title:"Task Progress", field:"progress", hozAlign:"left", formatter:"progress", editor:true},
-                {title:"Gender", field:"gender", width:95, editor:"list", editorParams:{values:["male", "female"]}},
-                {title:"Rating", field:"rating", formatter:"star", hozAlign:"center", width:100, editor:true},
-                {title:"Color", field:"col", width:130, editor:"input"},
-                {title:"Date Of Birth", field:"dob", width:130, sorter:"date", hozAlign:"center"},
-                {title:"Driver", field:"car", width:90,  hozAlign:"center", formatter:"tickCross", sorter:"boolean", editor:true},
+                {
+                    formatter: "rowSelection", 
+                    //titleFormatter: "rowSelection", 
+                    hozAlign: "center", // Horizontal alignment of cell contents
+                    headerSort: false,  // Disable sorting on this column
+                    frozen: true,        // Freeze the column in place
+                    headerHozAlign: "center",
+                    width: 60,
+                },
+                {title:"ID", field:"dic_id", width: 120, },
+                {title:"English", field:"eng_word", },
+                {title:"Mongolian", field:"mon_word", },
+                {title:"Date", field:"reg_date", width: 120, },
             ],
         });
+
+        this.table.on("tableBuilt", function(){ 
+            manageApp.selectVocDic();
+        });
+
+        this.table.on("rowClick", function(e, row){ });
+
+        this.table.on("rowSelected", function(row){ });
+
+        this.table.on("rowDeselected", function(row){ });
+
     },
 }

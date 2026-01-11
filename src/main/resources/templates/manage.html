@@ -13,7 +13,7 @@
 
 	<div class="content-wrapper">
 		<div class="toolbar">
-			<input type="text" placeholder="Search input"/>
+			<input type="text" th:id="'inSearch'+${pv}" placeholder="Search input"/>
 
 			<button class="toolbar-btn" th:id="'btnSelect'+${pv}">Select</button>
 			<button class="toolbar-btn" th:id="'btnCreate'+${pv}">Create</button>
@@ -34,9 +34,9 @@
 					<h2 th:id="'h2ModalTitle'+${pv}">Create Vocabulary</h2>
 				</div>
 				<div class="modal-content">
-					<input type="text" th:id="'inModalEnglish'+${pv}" placeholder="Input English"/>
+					<input type="text" th:id="'inModalEngWord'+${pv}" placeholder="Input English"/>
 					<br><br>
-					<input type="text" th:id="'inModalMongolian'+${pv}" placeholder="Input Mongolian"/>
+					<input type="text" th:id="'inModalMonWord'+${pv}" placeholder="Input Mongolian"/>
 				</div>
 				<div class="modal-footer">
 					<button class="modal-btn" th:id="'btnModalSave'+${pv}">Save</button>

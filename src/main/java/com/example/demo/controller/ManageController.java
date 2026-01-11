@@ -19,4 +19,19 @@ public class ManageController {
     public Object create(@RequestBody Map<String, Object> data) {
         return manageService.create(data);
     }
+
+    @PostMapping("/update")
+    public Object update(@RequestBody Map<String, Object> data) {
+        return manageService.update(data);
+    }
+
+    @PostMapping("/delete")
+    public Object delete(@RequestBody Map<String, Object> data) {
+        return manageService.delete(data);
+    }
+
+    @GetMapping("/selectVocDic")
+    public Object selectVocDic() {
+        return manageService.selectVocDic();
+    }
 }

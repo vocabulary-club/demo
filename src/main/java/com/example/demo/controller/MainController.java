@@ -12,14 +12,11 @@ public class MainController {
     private final MainService mainService;
 
     public MainController(MainService mainService) {
-
         this.mainService = mainService;
     }
 
     @GetMapping("/getVocDic")
     public Object getVocDic() {
-
         return mainService.getVocDic();
     }
-	
 }

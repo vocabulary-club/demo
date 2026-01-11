@@ -2,19 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.repository.ManageRepository">
 
-    <insert id="saveVocEng" parameterType="map" useGeneratedKeys="true" keyProperty="eng_id">
+    <insert id="createVocEng" parameterType="map" useGeneratedKeys="true" keyProperty="eng_id">
         insert into vocabulary.voc_eng (voc_word)
         values(#{eng_word})
     </insert>
 
-    <insert id="saveVocMon" parameterType="map" useGeneratedKeys="true" keyProperty="mon_id">
+    <insert id="createVocMon" parameterType="map" useGeneratedKeys="true" keyProperty="mon_id">
         insert into vocabulary.voc_mon (voc_word)
         values(#{mon_word})
     </insert>
 
-    <insert id="saveVocDic" parameterType="map" useGeneratedKeys="true" keyProperty="div_id">
+    <insert id="createVocDic" parameterType="map" useGeneratedKeys="true" keyProperty="div_id">
         insert into vocabulary.voc_dic (eng_voc_id, mon_voc_id)
         values(#{eng_id}, #{mon_id})
     </insert>
+
+    <update id="updateVocEng" parameterType="map">
+        update vocabulary.voc_eng
+        set voc_word = #{eng_word}
+        where voc_id = #{eng_id};
+    </update>
+
+    <update id="updateVocMon" parameterType="map">
+        update vocabulary.voc_mon
+        set voc_word = #{mon_word}
+        where voc_id = #{mon_id};
+    </update>
+
+    <delete id="deleteVocDic" parameterType="map">
+        delete from vocabulary.voc_dic
+        where dic_id = #{dic_id};
+    </delete>
+
+    <delete id="deleteVocEng" parameterType="map">
+        delete from vocabulary.voc_eng
+        where voc_id = #{eng_id};
+    </delete>
+
+    <delete id="deleteVocMon" parameterType="map">
+        delete from vocabulary.voc_mon
+        where voc_id = #{mon_id};
+    </delete>
+
+    <select id="selectVocDic" resultType="Map">
+        select dic.dic_id,
+        eng.voc_id as eng_id, eng.voc_word as eng_word,
+        eng.voc_id as mon_id, mon.voc_word as mon_word,
+        date_format(dic.reg_date, '%Y-%m-%d') as reg_date
+        from vocabulary.voc_dic dic
+        left join vocabulary.voc_eng eng on (dic.eng_voc_id = eng.voc_id)
+        left join vocabulary.voc_mon mon on (dic.mon_voc_id = mon.voc_id)
+        order by reg_date;
+    </select>
 
 </mapper>
