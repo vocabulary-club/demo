@@ -4,6 +4,7 @@
       layout:decorate="layouts/main">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <script th:src="@{/js/home.js}"></script>
     <script th:inline="javascript">
@@ -15,21 +16,33 @@
     
     <div class="content-wrapper">
 		<div class="toolbar">
-            <label><input type="radio" name="language" value="english" checked>English</label>
-            <label><input type="radio" name="language" value="mongolian">Mongolian</label>
-            <label><input type="radio" name="language" value="both">Both</label>
-		</div>
 
-        <div class="toolbar">
-            <label><input type="radio" name="time" value="2" checked>2sec</label>
-            <label><input type="radio" name="time" value="3">3sec</label>
-            <label><input type="radio" name="time" value="4">4sec</label>
-		</div>
-
-        <div class="toolbar">
-			<button class="toolbar-btn" th:id="'btnStart'+${pv}">Start</button>
+            <button class="toolbar-btn" th:id="'btnStart'+${pv}">Start</button>
 			<button class="toolbar-btn" th:id="'btnPause'+${pv}">Pause</button>
 			<button class="toolbar-btn" th:id="'btnStop'+${pv}">Stop</button>
+            
+            <div class="radio-group">
+                <input type="radio" id="english" name="language" value="english" checked>
+                <label for="english">Eng</label>
+
+                <input type="radio" id="mongolian" name="language" value="english">
+                <label for="mongolian">Mon</label>
+
+                <input type="radio" id="both" name="language" value="both">
+                <label for="both">Both</label>
+            </div>
+            
+            <div class="radio-group">
+                <input type="radio" id="time2" name="time" value="2" checked>
+                <label for="time2">2 sec</label>
+
+                <input type="radio" id="time3" name="time" value="3">
+                <label for="time3">3 sec</label>
+
+                <input type="radio" id="time4" name="time" value="4">
+                <label for="time4">4 sec</label>
+            </div>
+
 		</div>
 
 		<div class="word-wrapper">

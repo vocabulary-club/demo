@@ -48,11 +48,12 @@
         select dic.dic_id,
         eng.voc_id as eng_id, eng.voc_word as eng_word,
         eng.voc_id as mon_id, mon.voc_word as mon_word,
-        date_format(dic.reg_date, '%Y-%m-%d') as reg_date
+        date_format(dic.reg_date, '%Y-%m-%d') as reg_date,
+        date_format(dic.reg_date, '%d') as reg_day
         from vocabulary.voc_dic dic
         left join vocabulary.voc_eng eng on (dic.eng_voc_id = eng.voc_id)
         left join vocabulary.voc_mon mon on (dic.mon_voc_id = mon.voc_id)
-        order by dic_id desc;
+        order by reg_date desc, dic_id asc;
     </select>
 
 </mapper>

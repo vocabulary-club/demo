@@ -193,12 +193,12 @@ var manageApp = {
                     headerSort: false,  // Disable sorting on this column
                     frozen: true,        // Freeze the column in place
                     headerHozAlign: "center",
-                    width: 60,
+                    width: 32,
                 },
-                {title:"ID", field:"dic_id", width: 120, },
+                // {title:"ID", field:"dic_id", width: 120, },
                 {title:"English", field:"eng_word", },
                 {title:"Mongolian", field:"mon_word", },
-                {title:"Date", field:"reg_date", width: 120, },
+                {title:"Date", field:"reg_day", width: 32, },
             ],
         });
 

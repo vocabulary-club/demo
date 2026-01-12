@@ -129,7 +129,7 @@ var homeApp = {
 		count.textContent = (1 + i) + " / " + homeApp.shuffledData.length;
 
 		homeApp.finishedData.push(homeApp.shuffledData[i]);
-		homeApp.table.setData(homeApp.finishedData);
+		homeApp.table.setData(homeApp.finishedData.slice().reverse());
 
 		homeApp.shuffledIndex++;
 
@@ -162,12 +162,12 @@ var homeApp = {
                     headerSort: false,  // Disable sorting on this column
                     frozen: true,        // Freeze the column in place
                     headerHozAlign: "center",
-                    width: 60,
+                    width: 32,
                 },
-                {title:"ID", field:"dic_id", width: 120, },
+                // {title:"ID", field:"dic_id", width: 120, },
                 {title:"English", field:"eng_word", },
                 {title:"Mongolian", field:"mon_word", },
-                {title:"Date", field:"reg_date", width: 120, },
+                // {title:"Date", field:"reg_date", width: 120, },
             ],
         });
 
