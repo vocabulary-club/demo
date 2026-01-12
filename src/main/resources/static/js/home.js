@@ -110,6 +110,7 @@ var homeApp = {
 		const engWord = document.getElementById(`engWord${homeApp.pv}`);		
 		const monWord = document.getElementById(`monWord${homeApp.pv}`);
 		const regDate = document.getElementById(`regDate${homeApp.pv}`);
+		const count = document.getElementById(`count${homeApp.pv}`);
 		const language = document.querySelector('input[name="language"]:checked');
 		const time = document.querySelector('input[name="time"]:checked');
 		const second = time.value * 1000;
@@ -125,6 +126,7 @@ var homeApp = {
 			monWord.textContent = homeApp.shuffledData[i].mon_word;
 		}
 		regDate.textContent = homeApp.shuffledData[i].reg_date;
+		count.textContent = (1 + i) + " / " + homeApp.shuffledData.length;
 
 		homeApp.finishedData.push(homeApp.shuffledData[i]);
 		homeApp.table.setData(homeApp.finishedData);
