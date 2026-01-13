@@ -8,5 +8,5 @@ import java.util.Map;
 @Mapper
 public interface CheckRepository {
 
-    List<Map<String, Object>> select(Map<String, Object> data);
+    List<Map<String, Object>> select();
 }

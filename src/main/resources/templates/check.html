@@ -26,20 +26,11 @@
             </div>
 
             <div class="radio-group">
-                <input type="radio" th:id="'twenty'+${pv}" name="limit" value="20">
-                <label th:for="'twenty'+${pv}">20</label>
+                <input type="radio" th:id="'lastFifty'+${pv}" name="limit" value="last 50" checked>
+                <label th:for="'lastFifty'+${pv}">Last 50</label>
 
-                <input type="radio" th:id="'fifty'+${pv}" name="limit" value="50" checked>
-                <label th:for="'fifty'+${pv}">50</label>
-
-                <input type="radio" th:id="'hundred'+${pv}" name="limit" value="100">
-                <label th:for="'hundred'+${pv}">100</label>
-
-                <input type="radio" th:id="'twoHundred'+${pv}" name="limit" value="200">
-                <label th:for="'twoHundred'+${pv}">200</label>
-
-                <input type="radio" th:id="'fiveHundred'+${pv}" name="limit" value="500">
-                <label th:for="'fiveHundred'+${pv}">500</label>
+                <input type="radio" th:id="'randFifty'+${pv}" name="limit" value="rand 50">
+                <label th:for="'randFifty'+${pv}">Rand 50</label>
             </div>
 
             <div class="radio-group">
@@ -48,9 +39,6 @@
 
                 <input type="radio" th:id="'mon'+${pv}" name="language" value="mon">
                 <label th:for="'mon'+${pv}">Mon</label>
-
-                <input type="radio" th:id="'all'+${pv}" name="language" value="all">
-                <label th:for="'all'+${pv}">All</label>
             </div>
             
             <div class="radio-group">
@@ -59,9 +47,6 @@
 
                 <input type="radio" th:id="'three'+${pv}" name="time" value="3" checked>
                 <label th:for="'three'+${pv}">3 sec</label>
-
-                <input type="radio" th:id="'four'+${pv}" name="time" value="4">
-                <label th:for="'four'+${pv}">4 sec</label>
             </div>
 
 		</div>

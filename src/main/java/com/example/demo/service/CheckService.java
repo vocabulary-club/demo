@@ -17,8 +17,8 @@ public class CheckService {
         this.manageRepository = manageRepository;
     }
 
-    public Object select(Map<String, Object> data) {
-        return checkRepository.select(data);
+    public Object select() {
+        return checkRepository.select();
     }
 
 }
