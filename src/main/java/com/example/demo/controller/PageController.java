@@ -19,9 +19,16 @@ public class PageController {
 		return "manage";
 	}
 
-	@GetMapping("/about")
-	public String about(Model model) {
-		return "about";
+	@GetMapping("/check")
+	public String check(Model model) {
+		model.addAttribute("pv", "check");
+		return "check";
+	}
+
+	@GetMapping("/test")
+	public String test(Model model) {
+		model.addAttribute("pv", "test");
+		return "test";
 	}
 	
 }

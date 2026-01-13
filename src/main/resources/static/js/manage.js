@@ -198,7 +198,7 @@ var manageApp = {
                 // {title:"ID", field:"dic_id", width: 120, },
                 {title:"English", field:"eng_word", },
                 {title:"Mongolian", field:"mon_word", },
-                {title:"Date", field:"reg_day", width: 32, },
+                {title:"Day", field:"reg_month_day", width: 64, },
             ],
         });
 

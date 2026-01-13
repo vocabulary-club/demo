@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/main">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script th:src="@{/js/test.js}"></script>
+    <script th:inline="javascript">
+        const pv = [[${pv}]];
+    </script>
+</head>
+<body>
+<section layout:fragment="content">
+    
+    Test page
+
+</section>
+</body>
+</html>
