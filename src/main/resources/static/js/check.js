@@ -49,7 +49,19 @@ var checkApp = {
 					checkApp.waitForData(() => {
 
 						const limit = document.querySelector('input[name="limit"]:checked');
-						if(limit.value == "last 50") {
+						if(limit.value == "last 10") {
+							const data = [];
+							for(let i = 0; i < 10; i++) {
+								data.push(checkApp.originData[i]);
+							}
+							for (let i = data.length - 1; i > 0; i--) {
+								const j = Math.floor(Math.random() * (i + 1));
+								[data[i], data[j]] = [data[j], data[i]];
+							}
+							checkApp.shuffledData = data;
+
+						}
+						else if(limit.value == "last 50") {
 							const data = [];
 							for(let i = 0; i < 50; i++) {
 								data.push(checkApp.originData[i]);
@@ -60,7 +72,19 @@ var checkApp = {
 							}
 							checkApp.shuffledData = data;
 
-						} else if(limit.value == "rand 50") {
+						}
+						else if(limit.value == "rand 10") {
+							const data = [...checkApp.originData];
+							for (let i = data.length - 1; i > 0; i--) {
+								const j = Math.floor(Math.random() * (i + 1));
+								[data[i], data[j]] = [data[j], data[i]];
+							}
+							checkApp.shuffledData = [];
+							for(let i = 0; i < 10; i++) {
+								checkApp.shuffledData.push(data[i]);
+							}
+						}
+						else if(limit.value == "rand 50") {
 							const data = [...checkApp.originData];
 							for (let i = data.length - 1; i > 0; i--) {
 								const j = Math.floor(Math.random() * (i + 1));

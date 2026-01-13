@@ -26,7 +26,13 @@
             </div>
 
             <div class="radio-group">
-                <input type="radio" th:id="'lastFifty'+${pv}" name="limit" value="last 50" checked>
+                <input type="radio" th:id="'lastTen'+${pv}" name="limit" value="last 10">
+                <label th:for="'lastTen'+${pv}">Last 10</label>
+
+                <input type="radio" th:id="'randTen'+${pv}" name="limit" value="rand 10" checked>
+                <label th:for="'randTen'+${pv}">Rand 10</label>
+
+                <input type="radio" th:id="'lastFifty'+${pv}" name="limit" value="last 50">
                 <label th:for="'lastFifty'+${pv}">Last 50</label>
 
                 <input type="radio" th:id="'randFifty'+${pv}" name="limit" value="rand 50">
