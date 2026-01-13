@@ -15,8 +15,8 @@ public class HomeController {
         this.homeService = homeService;
     }
 
-    @GetMapping("/selectVocDic")
-    public Object selectVocDic() {
-        return homeService.selectVocDic();
+    @GetMapping("/select")
+    public Object select() {
+        return homeService.select();
     }
 }

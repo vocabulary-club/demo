@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.repository.HomeRepository">
 
+    <select id="getLastRegDate" resultType="Map">
+        select max(reg_date) as reg_date from vocabulary.voc_dic;
+    </select>
+
+    <select id="select" resultType="Map" parameterType="Map">
+        select dic.dic_id,
+        eng.voc_id as eng_id, eng.voc_word as eng_word,
+        eng.voc_id as mon_id, mon.voc_word as mon_word,
+        date_format(dic.reg_date, '%Y-%m-%d') as reg_date,
+        date_format(dic.reg_date, '%m-%d') as reg_month_day
+        from vocabulary.voc_dic dic
+        left join vocabulary.voc_eng eng on (dic.eng_voc_id = eng.voc_id)
+        left join vocabulary.voc_mon mon on (dic.mon_voc_id = mon.voc_id)
+        where dic.reg_date = #{reg_date}
+        order by dic_id;
+    </select>
+
 </mapper>

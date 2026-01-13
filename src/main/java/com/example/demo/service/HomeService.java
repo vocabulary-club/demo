@@ -18,8 +18,10 @@ public class HomeService {
         this.manageRepository = manageRepository;
     }
 
-    public Object selectVocDic() {
-        return manageRepository.selectVocDic();
+    public Object select() {
+
+        Map<String, Object> lastRegDate = homeRepository.getLastRegDate();
+        return homeRepository.select(lastRegDate);
     }
 
 }

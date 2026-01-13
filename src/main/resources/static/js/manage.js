@@ -39,7 +39,7 @@ var manageApp = {
             });
         });
         btnSelect.addEventListener("click", function() {
-            manageApp.selectVocDic();            
+            manageApp.select();            
         });
         btnCreate.addEventListener("click", function() {
             manageApp.update = 0;
@@ -86,7 +86,7 @@ var manageApp = {
                     return response.json();
                 })
                 .then(function (data) {
-                    manageApp.selectVocDic();
+                    manageApp.select();
                 })
                 .catch(function (error) {
                     alert("Failed to save.");
@@ -127,7 +127,7 @@ var manageApp = {
                 return response.json();
             })
             .then(function (data) {
-                manageApp.selectVocDic();
+                manageApp.select();
             })
             .catch(function (error) {
                 alert("Failed to save.");
@@ -158,8 +158,8 @@ var manageApp = {
         });
 	},
 
-    selectVocDic : function() {
-        fetch('/api/manage/selectVocDic')
+    select : function() {
+        fetch('/api/manage/select')
             .then(response => response.json())
             .then(data => {
                 manageApp.table.setData(data); 
@@ -203,7 +203,7 @@ var manageApp = {
         });
 
         this.table.on("tableBuilt", function(){ 
-            manageApp.selectVocDic();
+            manageApp.select();
         });
 
         this.table.on("rowClick", function(e, row){ });

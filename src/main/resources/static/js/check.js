@@ -20,7 +20,7 @@ var checkApp = {
 
 		this.initTable();
 
-		this.selectVocDic();
+		this.select();
 
 		const btnStart = document.getElementById(`btnStart${this.pv}`);
 		const btnPause = document.getElementById(`btnPause${this.pv}`);
@@ -59,8 +59,8 @@ var checkApp = {
 			
 	},
 
-	selectVocDic : function() {
-        fetch('/api/check/selectVocDic')
+	select : function() {
+        fetch('/api/check/select')
             .then(response => response.json())
             .then(data => {
 				checkApp.originData = JSON.parse(JSON.stringify(data));				

@@ -15,8 +15,8 @@ public class CheckService {
         this.manageRepository = manageRepository;
     }
 
-    public Object selectVocDic() {
-        return manageRepository.selectVocDic();
+    public Object select() {
+        return manageRepository.select();
     }
 
 }

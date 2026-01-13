@@ -15,8 +15,8 @@ public class CheckController {
         this.checkService = checkService;
     }
 
-    @GetMapping("/selectVocDic")
-    public Object selectVocDic() {
-        return checkService.selectVocDic();
+    @GetMapping("/select")
+    public Object select() {
+        return checkService.select();
     }
 }

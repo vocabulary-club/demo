@@ -30,8 +30,8 @@ public class ManageController {
         return manageService.delete(data);
     }
 
-    @GetMapping("/selectVocDic")
-    public Object selectVocDic() {
-        return manageService.selectVocDic();
+    @GetMapping("/select")
+    public Object select() {
+        return manageService.select();
     }
 }

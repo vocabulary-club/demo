@@ -44,7 +44,7 @@
         where voc_id = #{mon_id};
     </delete>
 
-    <select id="selectVocDic" resultType="Map">
+    <select id="select" resultType="Map">
         select dic.dic_id,
         eng.voc_id as eng_id, eng.voc_word as eng_word,
         eng.voc_id as mon_id, mon.voc_word as mon_word,

@@ -16,5 +16,5 @@ public interface ManageRepository {
     int deleteVocDic(Map<String, Object> data);
     int deleteVocEng(Map<String, Object> data);
     int deleteVocMon(Map<String, Object> data);
-    List<Map<String, Object>> selectVocDic();
+    List<Map<String, Object>> select();
 }

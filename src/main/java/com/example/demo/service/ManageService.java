@@ -41,7 +41,7 @@ public class ManageService {
         return 0;
     }
 
-    public Object selectVocDic() {
-        return manageRepository.selectVocDic();
+    public Object select() {
+        return manageRepository.select();
     }
 }
