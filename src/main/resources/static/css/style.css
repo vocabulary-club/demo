@@ -46,7 +46,7 @@ section {
 
 input { 
     /* flex: 1;  */
-    padding: 12px; 
+    padding: 8px; 
     border: none; 
     font-size: 16px; 
     caret-color: #f00f;
@@ -55,7 +55,7 @@ input {
 button {     
     background-color: #333c; 
     color: #ffff;
-    padding: 12px;  
+    padding: 8px;  
     border: none; 
     font-size: 16px; 
     cursor: pointer; 
@@ -85,11 +85,16 @@ button:active {
 .radio-group label {
     background-color: #333c; 
     color: #ffff; 
-    padding: 12px; 
+    padding: 8px; 
     font-size: 16px;
     cursor: pointer;
     transition: 0.2s;
     width: 80px;
+
+    display: flex;
+    align-items: center;      /* vertical center */
+    justify-content: center;  /* horizontal center */
+    text-align: center;
 }
 
 .radio-group input:checked + label {

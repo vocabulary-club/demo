@@ -16,31 +16,38 @@
     
     <div class="content-wrapper">
 		<div class="toolbar">
-
-            <button class="toolbar-btn" th:id="'btnStart'+${pv}">Start</button>
-			<button class="toolbar-btn" th:id="'btnPause'+${pv}">Pause</button>
-			<button class="toolbar-btn" th:id="'btnStop'+${pv}">Stop</button>
             
             <div class="radio-group">
-                <input type="radio" id="english" name="language" value="english" checked>
-                <label for="english">Eng</label>
+                <input type="radio" th:id="'start'+${pv}" name="action" value="start">
+                <label th:for="'start'+${pv}">Start</label>
 
-                <input type="radio" id="mongolian" name="language" value="english">
-                <label for="mongolian">Mon</label>
+                <input type="radio" th:id="'pause'+${pv}" name="action" value="pause">
+                <label th:for="'pause'+${pv}">Pause</label>
 
-                <input type="radio" id="both" name="language" value="both">
-                <label for="both">Both</label>
+                <input type="radio" th:id="'stop'+${pv}" name="action" value="stop" checked>
+                <label th:for="'stop'+${pv}">Stop</label>
+            </div>
+
+            <div class="radio-group">
+                <input type="radio" th:id="'eng'+${pv}" name="language" value="eng" checked>
+                <label th:for="'eng'+${pv}">Eng</label>
+
+                <input type="radio" th:id="'mon'+${pv}" name="language" value="mon">
+                <label th:for="'mon'+${pv}">Mon</label>
+
+                <input type="radio" th:id="'all'+${pv}" name="language" value="all">
+                <label th:for="'all'+${pv}">All</label>
             </div>
             
             <div class="radio-group">
-                <input type="radio" id="time2" name="time" value="2" checked>
-                <label for="time2">2 sec</label>
+                <input type="radio" th:id="'two'+${pv}" name="time" value="2">
+                <label th:for="'two'+${pv}">2 sec</label>
 
-                <input type="radio" id="time3" name="time" value="3">
-                <label for="time3">3 sec</label>
+                <input type="radio" th:id="'three'+${pv}" name="time" value="3" checked>
+                <label th:for="'three'+${pv}">3 sec</label>
 
-                <input type="radio" id="time4" name="time" value="4">
-                <label for="time4">4 sec</label>
+                <input type="radio" th:id="'four'+${pv}" name="time" value="4">
+                <label th:for="'four'+${pv}">4 sec</label>
             </div>
 
 		</div>

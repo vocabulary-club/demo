@@ -13,9 +13,9 @@ var homeApp = {
 
 		this.initTable();
 
-		const radios = document.querySelectorAll('input[name="day"]');
-		radios.forEach(radio => {
-			radio.addEventListener('change', function () {
+		const days = document.querySelectorAll('input[name="day"]');
+		days.forEach(item => {
+			item.addEventListener('change', function () {
 				homeApp.select();
 			});
 		});

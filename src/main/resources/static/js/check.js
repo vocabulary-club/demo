@@ -22,41 +22,36 @@ var checkApp = {
 
 		this.select();
 
-		const btnStart = document.getElementById(`btnStart${this.pv}`);
-		const btnPause = document.getElementById(`btnPause${this.pv}`);
-		const btnStop = document.getElementById(`btnStop${this.pv}`);
-
-		btnStart.addEventListener("click", function() {
-            checkApp.waitForData(() => {
-				if(checkApp.action == 1) {
-					checkApp.action = 0;
-					checkApp.myTask();
-				} else if(checkApp.action == 2) {
-					checkApp.finishedData = [];
-					checkApp.shuffle();
-					checkApp.shuffledIndex = 0;
-					checkApp.action = 0;
-					checkApp.myTask();
-				} else {
-					checkApp.finishedData = [];
-					checkApp.shuffle();
-					checkApp.shuffledIndex = 0;
-					checkApp.action = 0;
-					checkApp.myTask();	
+		const actions = document.querySelectorAll('input[name="action"]');
+		actions.forEach(item => {
+			item.addEventListener('change', function () {
+				if(this.value == "start") {
+					checkApp.waitForData(() => {
+						if(checkApp.action == 1) {
+							checkApp.action = 0;
+							checkApp.myTask();
+						} else if(checkApp.action == 2) {
+							checkApp.finishedData = [];
+							checkApp.shuffle();
+							checkApp.shuffledIndex = 0;
+							checkApp.action = 0;
+							checkApp.myTask();
+						} else {
+							checkApp.finishedData = [];
+							checkApp.shuffle();
+							checkApp.shuffledIndex = 0;
+							checkApp.action = 0;
+							checkApp.myTask();	
+						}
+					});	
+				} else if(this.value == "pause") {
+					checkApp.action = 1;
+				} else if(this.value == "stop") {
+					checkApp.action = 2;
 				}
-			});	
-        });
-		btnPause.addEventListener("click", function() {
-            checkApp.waitForData(() => {
-				checkApp.action = 1;
-			});	
-        });
-		btnStop.addEventListener("click", function() {
-            checkApp.waitForData(() => {
-				checkApp.action = 2;
-			});	
-        });
-			
+			});
+		});
+
 	},
 
 	select : function() {
@@ -115,13 +110,13 @@ var checkApp = {
 		const time = document.querySelector('input[name="time"]:checked');
 		const second = time.value * 1000;
 
-		if(language.value == "english") {
+		if(language.value == "eng") {
 			engWord.textContent = checkApp.shuffledData[i].eng_word;
 			monWord.textContent = "";
-		} else if(language.value == "mongolian") {
+		} else if(language.value == "mon") {
 			engWord.textContent = "";
 			monWord.textContent = checkApp.shuffledData[i].mon_word;
-		} else if(language.value == "both") {
+		} else if(language.value == "all") {
 			engWord.textContent = checkApp.shuffledData[i].eng_word;
 			monWord.textContent = checkApp.shuffledData[i].mon_word;
 		}
