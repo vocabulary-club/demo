@@ -9,5 +9,7 @@ import java.util.Map;
 public interface HomeRepository {
 
     Map<String, Object> getLastRegDate();
+    Map<String, Object> getSecondLastRegDate();
+    Map<String, Object> getThirdLastRegDate();
     List<Map<String, Object>> select(Map<String, Object> data);
 }

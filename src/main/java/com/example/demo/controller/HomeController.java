@@ -1,9 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.HomeService;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/home")
@@ -15,8 +18,8 @@ public class HomeController {
         this.homeService = homeService;
     }
 
-    @GetMapping("/select")
-    public Object select() {
-        return homeService.select();
+    @PostMapping("/select")
+    public Object select(@RequestBody Map<String, Object> data) {
+        return homeService.select(data);
     }
 }

@@ -12,6 +12,14 @@ var homeApp = {
 		this.pv = pv;
 
 		this.initTable();
+
+		const radios = document.querySelectorAll('input[name="day"]');
+		radios.forEach(radio => {
+			radio.addEventListener('change', function () {
+				homeApp.select();
+			});
+		});
+		
 	},
 
 	initTable : function() {
@@ -61,11 +69,26 @@ var homeApp = {
     },
 
     select : function() {
-        fetch('/api/home/select')
-            .then(response => response.json())
-            .then(data => {
-                homeApp.table.setData(data); 
-            })
-            .catch(error => console.error('Error fetching data:', error));
+		const day = document.querySelector('input[name="day"]:checked');
+		const data = { "day" : day.value, };
+		fetch("/api/home/select", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(data)
+		})
+		.then(function (response) {
+			if (!response.ok) {
+				throw new Error("HTTP error " + response.status);
+			}
+			return response.json();
+		})
+		.then(function (data) {
+			homeApp.table.setData(data); 
+		})
+		.catch(function (error) {
+			
+		});
     },
 }

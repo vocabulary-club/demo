@@ -6,6 +6,22 @@
         select max(reg_date) as reg_date from vocabulary.voc_dic;
     </select>
 
+    <select id="getSecondLastRegDate" resultType="Map">
+        select max(reg_date) as reg_date
+        from vocabulary.voc_dic
+        where reg_date <![CDATA[ < ]]> ( select max(reg_date) from vocabulary.voc_dic );
+    </select>
+
+    <select id="getThirdLastRegDate" resultType="Map">
+        select max(reg_date) as reg_date
+        from vocabulary.voc_dic
+        where reg_date <![CDATA[ < ]]> (
+            select max(reg_date)
+            from vocabulary.voc_dic
+            where reg_date <![CDATA[ < ]]> ( select max(reg_date) from vocabulary.voc_dic )
+        );
+    </select>
+
     <select id="select" resultType="Map" parameterType="Map">
         select dic.dic_id,
         eng.voc_id as eng_id, eng.voc_word as eng_word,

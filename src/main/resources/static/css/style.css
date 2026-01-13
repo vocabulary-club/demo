@@ -39,8 +39,8 @@ section {
 .toolbar { 
     display: flex; 
     gap: 8px; 
-    margin-bottom: 12px; 
-    padding-bottom: 12px; 
+    margin-bottom: 6px; 
+    padding-bottom: 6px; 
     overflow-x: auto;
 }
 
