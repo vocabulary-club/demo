@@ -21,11 +21,25 @@
                 <input type="radio" th:id="'start'+${pv}" name="action" value="start">
                 <label th:for="'start'+${pv}">Start</label>
 
-                <input type="radio" th:id="'pause'+${pv}" name="action" value="pause">
-                <label th:for="'pause'+${pv}">Pause</label>
-
                 <input type="radio" th:id="'stop'+${pv}" name="action" value="stop" checked>
                 <label th:for="'stop'+${pv}">Stop</label>
+            </div>
+
+            <div class="radio-group">
+                <input type="radio" th:id="'twenty'+${pv}" name="limit" value="20">
+                <label th:for="'twenty'+${pv}">20</label>
+
+                <input type="radio" th:id="'fifty'+${pv}" name="limit" value="50" checked>
+                <label th:for="'fifty'+${pv}">50</label>
+
+                <input type="radio" th:id="'hundred'+${pv}" name="limit" value="100">
+                <label th:for="'hundred'+${pv}">100</label>
+
+                <input type="radio" th:id="'twoHundred'+${pv}" name="limit" value="200">
+                <label th:for="'twoHundred'+${pv}">200</label>
+
+                <input type="radio" th:id="'fiveHundred'+${pv}" name="limit" value="500">
+                <label th:for="'fiveHundred'+${pv}">500</label>
             </div>
 
             <div class="radio-group">
@@ -52,14 +66,14 @@
 
 		</div>
 
-		<div class="word-wrapper">
+		<div class="word-wrapper" th:id="'wordWrapper'+${pv}">
             <div class="word" th:id="'engWord'+${pv}"></div>
             <div class="word" th:id="'monWord'+${pv}"></div>
             <div class="word" th:id="'regDate'+${pv}"></div>
             <div class="word" th:id="'count'+${pv}"></div>
 		</div>
 
-        <div class="table-wrapper">
+        <div class="table-wrapper hide" th:id="'tableWrapper'+${pv}">
 			<div th:id="'table'+${pv}"></div>
 		</div>
 	</div>

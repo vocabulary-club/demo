@@ -9,7 +9,6 @@ var checkApp = {
 
 	originData : null,
 	shuffledData : null,
-	finishedData : [],
 	shuffledIndex : 0,
 
 	action : 0, // 0:start, 1:pause, 2:stop
@@ -20,34 +19,19 @@ var checkApp = {
 
 		this.initTable();
 
-		this.select();
-
 		const actions = document.querySelectorAll('input[name="action"]');
 		actions.forEach(item => {
 			item.addEventListener('change', function () {
+				checkApp.action = this.value;
 				if(this.value == "start") {
+					checkApp.select();
 					checkApp.waitForData(() => {
-						if(checkApp.action == 1) {
-							checkApp.action = 0;
-							checkApp.myTask();
-						} else if(checkApp.action == 2) {
-							checkApp.finishedData = [];
-							checkApp.shuffle();
-							checkApp.shuffledIndex = 0;
-							checkApp.action = 0;
-							checkApp.myTask();
-						} else {
-							checkApp.finishedData = [];
-							checkApp.shuffle();
-							checkApp.shuffledIndex = 0;
-							checkApp.action = 0;
-							checkApp.myTask();	
-						}
+						checkApp.shuffledIndex = 0;
+						checkApp.myTask();
 					});	
-				} else if(this.value == "pause") {
-					checkApp.action = 1;
 				} else if(this.value == "stop") {
-					checkApp.action = 2;
+					checkApp.shuffledIndex = 0;
+					checkApp.myTask();
 				}
 			});
 		});
@@ -55,7 +39,16 @@ var checkApp = {
 	},
 
 	select : function() {
-        fetch('/api/check/select')
+		const limit = document.querySelector('input[name="limit"]:checked');
+		const value = parseInt(limit.value, 10);
+		const data = { "limit" : value, };
+        fetch('/api/check/select', {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(data)
+			})
             .then(response => response.json())
             .then(data => {
 				checkApp.originData = JSON.parse(JSON.stringify(data));				
@@ -92,23 +85,50 @@ var checkApp = {
 
 	myTask : function () {
 
-		if(checkApp.action == 1 || checkApp.action == 2) return;
-
-		const i = checkApp.shuffledIndex;
-		
-		if(i >= checkApp.shuffledData.length) {
-			return;
-		}
-
-        console.log(i, "task is at", new Date().toLocaleTimeString());
-
 		const engWord = document.getElementById(`engWord${checkApp.pv}`);		
 		const monWord = document.getElementById(`monWord${checkApp.pv}`);
 		const regDate = document.getElementById(`regDate${checkApp.pv}`);
 		const count = document.getElementById(`count${checkApp.pv}`);
+
+		const wordWrapper = document.getElementById(`wordWrapper${checkApp.pv}`);
+		const tableWrapper = document.getElementById(`tableWrapper${checkApp.pv}`);
+
 		const language = document.querySelector('input[name="language"]:checked');
 		const time = document.querySelector('input[name="time"]:checked');
-		const second = time.value * 1000;
+		const timeInSecond = time.value * 1000;
+
+		const i = checkApp.shuffledIndex;		
+		if(checkApp.action == "stop") { 
+			
+			engWord.textContent = "";
+			monWord.textContent = "";
+			regDate.textContent = ""; 
+			count.textContent = "";
+
+			checkApp.table.setData(checkApp.shuffledData);
+
+			wordWrapper.classList.add("hide");
+			tableWrapper.classList.remove("hide");
+			
+			return;
+
+		} else if(checkApp.action == "start") {
+			wordWrapper.classList.remove("hide");
+			tableWrapper.classList.add("hide");
+		};
+
+		if(i >= checkApp.shuffledData.length) { 
+			
+			checkApp.table.setData(checkApp.shuffledData);
+
+			wordWrapper.classList.add("hide");
+			tableWrapper.classList.remove("hide");
+			
+			return;
+
+		};
+
+        console.log(i, "task is at", new Date().toLocaleTimeString());
 
 		if(language.value == "eng") {
 			engWord.textContent = checkApp.shuffledData[i].eng_word;
@@ -123,12 +143,9 @@ var checkApp = {
 		regDate.textContent = checkApp.shuffledData[i].reg_date;
 		count.textContent = (1 + i) + " / " + checkApp.shuffledData.length;
 
-		checkApp.finishedData.push(checkApp.shuffledData[i]);
-		checkApp.table.setData(checkApp.finishedData.slice().reverse());
-
 		checkApp.shuffledIndex++;
 
-        setTimeout(checkApp.myTask, second);
+        setTimeout(checkApp.myTask, timeInSecond);
     },
 
 	initTable : function() {

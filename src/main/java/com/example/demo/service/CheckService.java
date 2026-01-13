@@ -4,6 +4,8 @@ import com.example.demo.repository.CheckRepository;
 import com.example.demo.repository.ManageRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class CheckService {
 
@@ -15,8 +17,8 @@ public class CheckService {
         this.manageRepository = manageRepository;
     }
 
-    public Object select() {
-        return manageRepository.select();
+    public Object select(Map<String, Object> data) {
+        return checkRepository.select(data);
     }
 
 }
