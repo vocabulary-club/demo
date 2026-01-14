@@ -27,7 +27,11 @@ var homeApp = {
         this.table = new Tabulator(`#table${this.pv}`, {
             selectableRows:1,
             layout:"fitColumns",
+            history:true,
             pagination: false,
+			columnDefaults:{
+                tooltip:true,         //show tool tips on cells
+            },
             columns:[
                 {
                     formatter: "rowSelection", 
