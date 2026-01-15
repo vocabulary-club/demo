@@ -13,7 +13,6 @@ var testApp = {
 	shuffledIndex : 0,
 
 	action : "stop", // start, stop
-	timer : null,
 	
 	init : function() {
 
@@ -23,104 +22,154 @@ var testApp = {
 
 		this.initTable();
 
-		const actions = document.querySelectorAll('input[name="action"]');
-		actions.forEach(item => {
-			item.addEventListener('change', function () {
+		$('input[name="action"]').on('change', function () {
+			
+			if(testApp.originData.length < 10) {
+				alert("There must be more than 10 words at least!");
+				return;
+			}
 
-				const engWord = document.getElementById(`engWord${testApp.pv}`);		
-				const monWord = document.getElementById(`monWord${testApp.pv}`);
-				const regDate = document.getElementById(`regDate${testApp.pv}`);
-				const count = document.getElementById(`count${testApp.pv}`);
+			$(`#testWord${testApp.pv}`).empty();
+			$('label[for="first' + testApp.pv + '"]').empty();
+			$('label[for="second' + testApp.pv + '"]').empty();
+			$('label[for="third' + testApp.pv + '"]').empty();
+			$('label[for="fourth' + testApp.pv + '"]').empty();
+			$('label[for="fifth' + testApp.pv + '"]').empty();
+			$(`#regDate${testApp.pv}`).empty();
+			$(`#count${testApp.pv}`).empty();
+			$(`#answer${testApp.pv}`).empty();
+			$('input[name="answer"]').prop('checked', false);
+			
+			testApp.action = this.value;
+			
+			if(testApp.action == "start") {
 
-				engWord.textContent = "";
-				monWord.textContent = "";
-				regDate.textContent = "";
-				count.textContent = "";
-				
-				testApp.action = this.value;
-				
-				if(this.value == "start") {
+				$(`#wordWrapper${testApp.pv}`).removeClass('hide');
+				$(`#tableWrapper${testApp.pv}`).addClass('hide');
+
+				testApp.waitForData(() => {
+
+					const limit = $('input[name="limit"]:checked').val();
+
+					if(limit == "last 10") {
+						const data = [];
+						const length = testApp.originData.length >= 10 ? 10 : testApp.originData.length;
+						for(let i = 0; i < length; i++) {
+							data.push(testApp.originData[i]);
+						}
+						for (let i = data.length - 1; i > 0; i--) {
+							const j = Math.floor(Math.random() * (i + 1));
+							[data[i], data[j]] = [data[j], data[i]];
+						}
+						testApp.shuffledData = data;
+
+					}
+					else if(limit == "last 50") {
+						const data = [];
+						const length = testApp.originData.length >= 50 ? 50 : testApp.originData.length;
+						for(let i = 0; i < length; i++) {
+							data.push(testApp.originData[i]);
+						}
+						for (let i = data.length - 1; i > 0; i--) {
+							const j = Math.floor(Math.random() * (i + 1));
+							[data[i], data[j]] = [data[j], data[i]];
+						}
+						testApp.shuffledData = data;
+
+					}
+					else if(limit == "rand 10") {
+						const data = [...testApp.originData];
+						for (let i = data.length - 1; i > 0; i--) {
+							const j = Math.floor(Math.random() * (i + 1));
+							[data[i], data[j]] = [data[j], data[i]];
+						}
+						testApp.shuffledData = [];
+						const length = data.length >= 10 ? 10 : data.length;
+						for(let i = 0; i < length; i++) {
+							testApp.shuffledData.push(data[i]);
+						}
+					}
+					else if(limit == "rand 50") {
+						const data = [...testApp.originData];
+						for (let i = data.length - 1; i > 0; i--) {
+							const j = Math.floor(Math.random() * (i + 1));
+							[data[i], data[j]] = [data[j], data[i]];
+						}
+						testApp.shuffledData = [];
+						const length = data.length >= 50 ? 50 : data.length;
+						for(let i = 0; i < length; i++) {
+							testApp.shuffledData.push(data[i]);
+						}
+					}
 					
-					const wordWrapper = document.getElementById(`wordWrapper${testApp.pv}`);
-					const tableWrapper = document.getElementById(`tableWrapper${testApp.pv}`);
-					wordWrapper.classList.remove("hide");
-					tableWrapper.classList.add("hide");
-
-					testApp.waitForData(() => {
-
-						const limit = document.querySelector('input[name="limit"]:checked');
-						if(limit.value == "last 10") {
-							const data = [];
-							for(let i = 0; i < 10; i++) {
-								data.push(testApp.originData[i]);
-							}
-							for (let i = data.length - 1; i > 0; i--) {
-								const j = Math.floor(Math.random() * (i + 1));
-								[data[i], data[j]] = [data[j], data[i]];
-							}
-							testApp.shuffledData = data;
-
-						}
-						else if(limit.value == "last 50") {
-							const data = [];
-							for(let i = 0; i < 50; i++) {
-								data.push(testApp.originData[i]);
-							}
-							for (let i = data.length - 1; i > 0; i--) {
-								const j = Math.floor(Math.random() * (i + 1));
-								[data[i], data[j]] = [data[j], data[i]];
-							}
-							testApp.shuffledData = data;
-
-						}
-						else if(limit.value == "rand 10") {
-							const data = [...testApp.originData];
-							for (let i = data.length - 1; i > 0; i--) {
-								const j = Math.floor(Math.random() * (i + 1));
-								[data[i], data[j]] = [data[j], data[i]];
-							}
-							testApp.shuffledData = [];
-							for(let i = 0; i < 10; i++) {
-								testApp.shuffledData.push(data[i]);
-							}
-						}
-						else if(limit.value == "rand 50") {
-							const data = [...testApp.originData];
-							for (let i = data.length - 1; i > 0; i--) {
-								const j = Math.floor(Math.random() * (i + 1));
-								[data[i], data[j]] = [data[j], data[i]];
-							}
-							testApp.shuffledData = [];
-							for(let i = 0; i < 50; i++) {
-								testApp.shuffledData.push(data[i]);
-							}
-						}
-						testApp.finishedData = [];
-						testApp.shuffledIndex = 0;
+					for(let k = 0; k < testApp.shuffledData.length; k++) {
 						
-						const time = document.querySelector('input[name="time"]:checked');
-						const timeInSecond = time.value * 1000;
+						const shuffledData = testApp.shuffledData[k];
 
-						if (testApp.timer) return; // prevent duplicate intervals
+						// shuffle
+						const data = testApp.originData.filter(x => x.dic_id != shuffledData.dic_id)
+						for (let i = data.length - 1; i > 0; i--) {
+							const j = Math.floor(Math.random() * (i + 1));
+							[data[i], data[j]] = [data[j], data[i]];
+						}
 
-						testApp.myTask();
+						const answerData = [];
+						answerData.push(shuffledData);
+						for(let i = 0; i < 4; i++) {
+							answerData.push(data[i]);
+						}
 
-						testApp.timer = setInterval(testApp.myTask, timeInSecond);
+						for (let i = answerData.length - 1; i > 0; i--) {
+							const j = Math.floor(Math.random() * (i + 1));
+							[answerData[i], answerData[j]] = [answerData[j], answerData[i]];
+						}
 
-					});	
-				} else if(this.value == "stop") {
+						shuffledData.answer = answerData;
+					}
 
-					const wordWrapper = document.getElementById(`wordWrapper${testApp.pv}`);
-					const tableWrapper = document.getElementById(`tableWrapper${testApp.pv}`);
-					wordWrapper.classList.add("hide");
-					tableWrapper.classList.remove("hide");
+					testApp.finishedData = [];
+					testApp.shuffledIndex = 0;
 
-					testApp.table.setData(testApp.finishedData);
-					clearInterval(testApp.timer);
-					testApp.timer = null;
+					testApp.myNext();
 
+				});	
+			} else if(testApp.action == "stop") {
+
+				$(`#wordWrapper${testApp.pv}`).addClass('hide');
+				$(`#tableWrapper${testApp.pv}`).removeClass('hide');
+
+				testApp.table.setData(testApp.finishedData);
+
+			}
+
+		});
+
+		$('input[name="answer"]').on('change', function () {			
+			$(`#answer${testApp.pv}`).removeClass("colorRed colorGreen");
+			const i = testApp.shuffledIndex;
+			const answerData = testApp.shuffledData[i].answer[parseInt(this.value, 10)];
+			if(answerData.dic_id == testApp.shuffledData[i].dic_id) {
+				$(`#answer${testApp.pv}`).text("correct");
+				$(`#answer${testApp.pv}`).addClass("colorGreen");
+				if(!testApp.finishedData[i].result) {
+					testApp.finishedData[i].result = "correct";					
 				}
-			});
+			} else {
+				$(`#answer${testApp.pv}`).text("wrong");
+				$(`#answer${testApp.pv}`).addClass("colorRed");
+				if(!testApp.finishedData[i].result) {
+					testApp.finishedData[i].result = "wrong";
+				}
+			}	
+			
+			// $(`#btnNext${testApp.pv}`).trigger('click');
+		});
+
+		$(`#btnNext${testApp.pv}`).on('click', (e) => {
+			$('input[name="answer"]').prop('checked', false);
+			$(`#answer${testApp.pv}`).empty();
+			testApp.shuffledIndex++;
+			testApp.myNext();
 		});
 
 	},
@@ -148,11 +197,13 @@ var testApp = {
         check();
     },
 
-	myTask: function () {
+	myNext: function () {
 
 		const i = testApp.shuffledIndex;
 
-		if (testApp.action === "stop" || i >= testApp.shuffledData.length) {			
+		if (testApp.action === "stop" || i >= testApp.shuffledData.length) {
+			// trigger event does not work on jquery
+			// so use dispatchEvent		
 			const actions = document.querySelectorAll('input[name="action"]');
 			actions.forEach(item => {
 				if(item.value == "stop") {
@@ -163,28 +214,26 @@ var testApp = {
 			return;
 		}
 
-		console.log(i, "task is at", new Date().toLocaleTimeString());
-
-		const engWord = document.getElementById(`engWord${testApp.pv}`);
-		const monWord = document.getElementById(`monWord${testApp.pv}`);
-		const regDate = document.getElementById(`regDate${testApp.pv}`);
-		const count = document.getElementById(`count${testApp.pv}`);
-
-		const language = document.querySelector('input[name="language"]:checked');
-
-		if (language.value === "eng") {
-			engWord.textContent = testApp.shuffledData[i].eng_word;
-			monWord.textContent = "";
+		if ($('input[name="language"]:checked').val() === 'eng') {
+			$(`#testWord${testApp.pv}`).text(testApp.shuffledData[i].eng_word);
+			$('label[for="first' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[0].mon_word);
+			$('label[for="second' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[1].mon_word);
+			$('label[for="third' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[2].mon_word);
+			$('label[for="fourth' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[3].mon_word);
+			$('label[for="fifth' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[4].mon_word);
 		} else {
-			engWord.textContent = "";
-			monWord.textContent = testApp.shuffledData[i].mon_word;
+			$(`#testWord${testApp.pv}`).text(testApp.shuffledData[i].mon_word);
+			$('label[for="first' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[0].eng_word);
+			$('label[for="second' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[1].eng_word);
+			$('label[for="third' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[2].eng_word);
+			$('label[for="fourth' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[3].eng_word);
+			$('label[for="fifth' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[4].eng_word);
 		}
 
-		regDate.textContent = testApp.shuffledData[i].reg_date;
-		count.textContent = (i + 1) + " / " + testApp.shuffledData.length;
+		$(`#regDate${testApp.pv}`).text(testApp.shuffledData[i].reg_date);
+		$(`#count${testApp.pv}`).text((i + 1) + " / " + testApp.shuffledData.length);
 
-		testApp.finishedData.push(testApp.shuffledData[i]);
-		testApp.shuffledIndex++;
+		testApp.finishedData.push(testApp.shuffledData[i]);		
 	},
 
 	initTable : function() {
@@ -197,6 +246,14 @@ var testApp = {
 			columnDefaults:{
                 tooltip:true,         //show tool tips on cells
             },
+			rowFormatter: function (row) {
+				const data = row.getData();
+				if (data.result === "correct") {
+					row.getElement().style.backgroundColor = "#4f44"; // green
+				} else if (data.result === "wrong") {
+					row.getElement().style.backgroundColor = "#f444"; // red
+				}
+			},
             columns:[
                 {
                     formatter: "rowSelection", 

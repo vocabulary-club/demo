@@ -75,7 +75,7 @@ button:active {
 .radio-group {
     display: flex;
     gap: 8px;
-    margin-left: 16px;
+    margin: 0px 8px 0px 8px;
 }
 
 .radio-group input {
@@ -95,6 +95,10 @@ button:active {
     align-items: center;      /* vertical center */
     justify-content: center;  /* horizontal center */
     text-align: center;
+}
+
+.radio-group label.full-width {
+    width: 100%;
 }
 
 .radio-group input:checked + label {
@@ -131,6 +135,15 @@ button:active {
 
 .word-wrapper { min-height: 0; }
 .word { padding: 12px 16px; font-size: 48px; }
+
+.font16 { font-size: 16px; }
+.font24 { font-size: 24px; }
+.font48 { font-size: 48px; }
+
+.colorRed { color: #f00f; }
+.colorGreen { color: #0f0f; }
+
+.btn-wrapper { height: 48px; display: flex; align-items: center; justify-content: center; gap: 16px; }
 
 @media (max-width: 768px) {
     
