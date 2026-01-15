@@ -140,8 +140,8 @@ button:active {
 .font24 { font-size: 24px; }
 .font48 { font-size: 48px; }
 
-.colorRed { color: #f00f; }
-.colorGreen { color: #0f0f; }
+.bgClrR { background-color: #f00f; }
+.bgClrG { background-color: #0f0f; }
 
 .btn-wrapper { height: 48px; display: flex; align-items: center; justify-content: center; gap: 16px; }
 

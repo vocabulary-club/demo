@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
-	testApp.init();
+	quickApp.init();
 });
 
-var testApp = {
+var quickApp = {
 
 	pv : null,
 	table : null,
@@ -24,90 +24,89 @@ var testApp = {
 
 		$('input[name="action"]').on('change', function () {
 			
-			if(testApp.originData.length < 10) {
+			if(quickApp.originData.length < 10) {
 				alert("There must be more than 10 words at least!");
 				return;
 			}
 
-			$(`#testWord${testApp.pv}`).empty();
-			$('label[for="first' + testApp.pv + '"]').empty();
-			$('label[for="second' + testApp.pv + '"]').empty();
-			$('label[for="third' + testApp.pv + '"]').empty();
-			$('label[for="fourth' + testApp.pv + '"]').empty();
-			$('label[for="fifth' + testApp.pv + '"]').empty();
-			$(`#regDate${testApp.pv}`).empty();
-			$(`#count${testApp.pv}`).empty();
-			$(`#answer${testApp.pv}`).empty();
+			$(`#testWord${quickApp.pv}`).empty();
+			$('label[for="first' + quickApp.pv + '"]').empty();
+			$('label[for="second' + quickApp.pv + '"]').empty();
+			$('label[for="third' + quickApp.pv + '"]').empty();
+			$('label[for="fourth' + quickApp.pv + '"]').empty();
+			$('label[for="fifth' + quickApp.pv + '"]').empty();
+			$(`#regDate${quickApp.pv}`).empty();
+			$(`#count${quickApp.pv}`).empty();
 			$('input[name="answer"]').prop('checked', false);
 			
-			testApp.action = this.value;
+			quickApp.action = this.value;
 			
-			if(testApp.action == "start") {
+			if(quickApp.action == "start") {
 
-				$(`#wordWrapper${testApp.pv}`).removeClass('hide');
-				$(`#tableWrapper${testApp.pv}`).addClass('hide');
+				$(`#wordWrapper${quickApp.pv}`).removeClass('hide');
+				$(`#tableWrapper${quickApp.pv}`).addClass('hide');
 
-				testApp.waitForData(() => {
+				quickApp.waitForData(() => {
 
 					const limit = $('input[name="limit"]:checked').val();
 
 					if(limit == "last 10") {
 						const data = [];
-						const length = testApp.originData.length >= 10 ? 10 : testApp.originData.length;
+						const length = quickApp.originData.length >= 10 ? 10 : quickApp.originData.length;
 						for(let i = 0; i < length; i++) {
-							data.push(testApp.originData[i]);
+							data.push(quickApp.originData[i]);
 						}
 						for (let i = data.length - 1; i > 0; i--) {
 							const j = Math.floor(Math.random() * (i + 1));
 							[data[i], data[j]] = [data[j], data[i]];
 						}
-						testApp.shuffledData = data;
+						quickApp.shuffledData = data;
 
 					}
 					else if(limit == "last 50") {
 						const data = [];
-						const length = testApp.originData.length >= 50 ? 50 : testApp.originData.length;
+						const length = quickApp.originData.length >= 50 ? 50 : quickApp.originData.length;
 						for(let i = 0; i < length; i++) {
-							data.push(testApp.originData[i]);
+							data.push(quickApp.originData[i]);
 						}
 						for (let i = data.length - 1; i > 0; i--) {
 							const j = Math.floor(Math.random() * (i + 1));
 							[data[i], data[j]] = [data[j], data[i]];
 						}
-						testApp.shuffledData = data;
+						quickApp.shuffledData = data;
 
 					}
 					else if(limit == "rand 10") {
-						const data = [...testApp.originData];
+						const data = [...quickApp.originData];
 						for (let i = data.length - 1; i > 0; i--) {
 							const j = Math.floor(Math.random() * (i + 1));
 							[data[i], data[j]] = [data[j], data[i]];
 						}
-						testApp.shuffledData = [];
+						quickApp.shuffledData = [];
 						const length = data.length >= 10 ? 10 : data.length;
 						for(let i = 0; i < length; i++) {
-							testApp.shuffledData.push(data[i]);
+							quickApp.shuffledData.push(data[i]);
 						}
 					}
 					else if(limit == "rand 50") {
-						const data = [...testApp.originData];
+						const data = [...quickApp.originData];
 						for (let i = data.length - 1; i > 0; i--) {
 							const j = Math.floor(Math.random() * (i + 1));
 							[data[i], data[j]] = [data[j], data[i]];
 						}
-						testApp.shuffledData = [];
+						quickApp.shuffledData = [];
 						const length = data.length >= 50 ? 50 : data.length;
 						for(let i = 0; i < length; i++) {
-							testApp.shuffledData.push(data[i]);
+							quickApp.shuffledData.push(data[i]);
 						}
 					}
 					
-					for(let k = 0; k < testApp.shuffledData.length; k++) {
+					for(let k = 0; k < quickApp.shuffledData.length; k++) {
 						
-						const shuffledData = testApp.shuffledData[k];
+						const shuffledData = quickApp.shuffledData[k];
 
 						// shuffle
-						const data = testApp.originData.filter(x => x.dic_id != shuffledData.dic_id)
+						const data = quickApp.originData.filter(x => x.dic_id != shuffledData.dic_id)
 						for (let i = data.length - 1; i > 0; i--) {
 							const j = Math.floor(Math.random() * (i + 1));
 							[data[i], data[j]] = [data[j], data[i]];
@@ -127,50 +126,39 @@ var testApp = {
 						shuffledData.answer = answerData;
 					}
 
-					testApp.finishedData = [];
-					testApp.shuffledIndex = 0;
+					quickApp.finishedData = [];
+					quickApp.shuffledIndex = 0;
 
-					testApp.myNext();
+					quickApp.myNext();
 
 				});	
-			} else if(testApp.action == "stop") {
+			} else if(quickApp.action == "stop") {
 
-				$(`#wordWrapper${testApp.pv}`).addClass('hide');
-				$(`#tableWrapper${testApp.pv}`).removeClass('hide');
+				$(`#wordWrapper${quickApp.pv}`).addClass('hide');
+				$(`#tableWrapper${quickApp.pv}`).removeClass('hide');
 
-				testApp.table.setData(testApp.finishedData);
+				quickApp.table.setData(quickApp.finishedData);
 
 			}
 
 		});
 
-		$('input[name="answer"]').on('change', function () {			
-			$(`#answer${testApp.pv}`).removeClass("bgClrR bgClrG");
-			const i = testApp.shuffledIndex;
-			const answerData = testApp.shuffledData[i].answer[parseInt(this.value, 10)];
-			if(answerData.dic_id == testApp.shuffledData[i].dic_id) {
-				$(`#answer${testApp.pv}`).text("correct");
-				$(`#answer${testApp.pv}`).addClass("bgClrG");
-				if(!testApp.finishedData[i].result) {
-					testApp.finishedData[i].result = "correct";					
+		$('input[name="answer"]').on('change', function () {
+			const i = quickApp.shuffledIndex;
+			const answerData = quickApp.shuffledData[i].answer[parseInt(this.value, 10)];
+			if(answerData.dic_id == quickApp.shuffledData[i].dic_id) {
+				if(!quickApp.finishedData[i].result) {
+					quickApp.finishedData[i].result = "correct";					
 				}
 			} else {
-				$(`#answer${testApp.pv}`).text("wrong");
-				$(`#answer${testApp.pv}`).addClass("bgClrR");
-				if(!testApp.finishedData[i].result) {
-					testApp.finishedData[i].result = "wrong";
+				if(!quickApp.finishedData[i].result) {
+					quickApp.finishedData[i].result = "wrong";
 				}
 			}	
 			
-			// $(`#btnNext${testApp.pv}`).trigger('click');
-		});
-
-		$(`#btnNext${testApp.pv}`).on('click', (e) => {
 			$('input[name="answer"]').prop('checked', false);
-			$(`#answer${testApp.pv}`).empty();
-			$(`#answer${testApp.pv}`).removeClass("bgClrR bgClrG");
-			testApp.shuffledIndex++;
-			testApp.myNext();
+			quickApp.shuffledIndex++;
+			quickApp.myNext();
 		});
 
 	},
@@ -178,7 +166,7 @@ var testApp = {
 	select : function() {
         fetch('/api/check/select')
             .then(response => response.json())
-            .then(data => { testApp.originData = JSON.parse(JSON.stringify(data)); })
+            .then(data => { quickApp.originData = JSON.parse(JSON.stringify(data)); })
             .catch(error => console.error('Error fetching data:', error));
     },
 
@@ -186,7 +174,7 @@ var testApp = {
         const start = Date.now();
 
         function check() {
-            if (testApp.originData) {
+            if (quickApp.originData) {
                 callback();
             } else if (Date.now() - start >= timeout) {
                 console.error("Could not be done within timeout, stopping.");
@@ -200,9 +188,9 @@ var testApp = {
 
 	myNext: function () {
 
-		const i = testApp.shuffledIndex;
+		const i = quickApp.shuffledIndex;
 
-		if (testApp.action === "stop" || i >= testApp.shuffledData.length) {
+		if (quickApp.action === "stop" || i >= quickApp.shuffledData.length) {
 			// trigger event does not work on jquery
 			// so use dispatchEvent		
 			const actions = document.querySelectorAll('input[name="action"]');
@@ -216,25 +204,25 @@ var testApp = {
 		}
 
 		if ($('input[name="language"]:checked').val() === 'eng') {
-			$(`#testWord${testApp.pv}`).text(testApp.shuffledData[i].eng_word);
-			$('label[for="first' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[0].mon_word);
-			$('label[for="second' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[1].mon_word);
-			$('label[for="third' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[2].mon_word);
-			$('label[for="fourth' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[3].mon_word);
-			$('label[for="fifth' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[4].mon_word);
+			$(`#testWord${quickApp.pv}`).text(quickApp.shuffledData[i].eng_word);
+			$('label[for="first' + quickApp.pv + '"]').text(quickApp.shuffledData[i].answer[0].mon_word);
+			$('label[for="second' + quickApp.pv + '"]').text(quickApp.shuffledData[i].answer[1].mon_word);
+			$('label[for="third' + quickApp.pv + '"]').text(quickApp.shuffledData[i].answer[2].mon_word);
+			$('label[for="fourth' + quickApp.pv + '"]').text(quickApp.shuffledData[i].answer[3].mon_word);
+			$('label[for="fifth' + quickApp.pv + '"]').text(quickApp.shuffledData[i].answer[4].mon_word);
 		} else {
-			$(`#testWord${testApp.pv}`).text(testApp.shuffledData[i].mon_word);
-			$('label[for="first' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[0].eng_word);
-			$('label[for="second' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[1].eng_word);
-			$('label[for="third' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[2].eng_word);
-			$('label[for="fourth' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[3].eng_word);
-			$('label[for="fifth' + testApp.pv + '"]').text(testApp.shuffledData[i].answer[4].eng_word);
+			$(`#testWord${quickApp.pv}`).text(quickApp.shuffledData[i].mon_word);
+			$('label[for="first' + quickApp.pv + '"]').text(quickApp.shuffledData[i].answer[0].eng_word);
+			$('label[for="second' + quickApp.pv + '"]').text(quickApp.shuffledData[i].answer[1].eng_word);
+			$('label[for="third' + quickApp.pv + '"]').text(quickApp.shuffledData[i].answer[2].eng_word);
+			$('label[for="fourth' + quickApp.pv + '"]').text(quickApp.shuffledData[i].answer[3].eng_word);
+			$('label[for="fifth' + quickApp.pv + '"]').text(quickApp.shuffledData[i].answer[4].eng_word);
 		}
 
-		$(`#regDate${testApp.pv}`).text(testApp.shuffledData[i].reg_date);
-		$(`#count${testApp.pv}`).text((i + 1) + " / " + testApp.shuffledData.length);
+		$(`#regDate${quickApp.pv}`).text(quickApp.shuffledData[i].reg_date);
+		$(`#count${quickApp.pv}`).text((i + 1) + " / " + quickApp.shuffledData.length);
 
-		testApp.finishedData.push(testApp.shuffledData[i]);		
+		quickApp.finishedData.push(quickApp.shuffledData[i]);		
 	},
 
 	initTable : function() {

@@ -30,5 +30,11 @@ public class PageController {
 		model.addAttribute("pv", "test");
 		return "test";
 	}
+
+	@GetMapping("/quick")
+	public String quick(Model model) {
+		model.addAttribute("pv", "quick");
+		return "quick";
+	}
 	
 }

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/main">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script th:src="@{/js/quick.js}"></script>
+    <script th:inline="javascript">
+        const pv = [[${pv}]];
+    </script>
+</head>
+<body>
+<section layout:fragment="content">
+    
+    <div class="content-wrapper">
+		<div class="toolbar">
+            
+            <div class="radio-group">
+                <input type="radio" th:id="'start'+${pv}" name="action" value="start">
+                <label th:for="'start'+${pv}">Start</label>
+
+                <input type="radio" th:id="'stop'+${pv}" name="action" value="stop" checked>
+                <label th:for="'stop'+${pv}">Stop</label>
+            </div>
+
+            <div class="radio-group">
+                <input type="radio" th:id="'lastTen'+${pv}" name="limit" value="last 10">
+                <label th:for="'lastTen'+${pv}">Last 10</label>
+
+                <input type="radio" th:id="'randTen'+${pv}" name="limit" value="rand 10" checked>
+                <label th:for="'randTen'+${pv}">Rand 10</label>
+
+                <input type="radio" th:id="'lastFifty'+${pv}" name="limit" value="last 50">
+                <label th:for="'lastFifty'+${pv}">Last 50</label>
+
+                <input type="radio" th:id="'randFifty'+${pv}" name="limit" value="rand 50">
+                <label th:for="'randFifty'+${pv}">Rand 50</label>
+            </div>
+
+            <div class="radio-group">
+                <input type="radio" th:id="'eng'+${pv}" name="language" value="eng" checked>
+                <label th:for="'eng'+${pv}">Eng</label>
+
+                <input type="radio" th:id="'mon'+${pv}" name="language" value="mon">
+                <label th:for="'mon'+${pv}">Mon</label>
+            </div>
+
+		</div>
+
+		<div class="word-wrapper" th:id="'wordWrapper'+${pv}">
+            <div class="word font48" th:id="'testWord'+${pv}"></div>
+            <br>
+            <div class="radio-group" style="display:block;">
+                <input type="radio" th:id="'first'+${pv}" name="answer" value="0">
+                <label th:for="'first'+${pv}" class="full-width">answer 1</label>
+                <br>
+                <input type="radio" th:id="'second'+${pv}" name="answer" value="1">
+                <label th:for="'second'+${pv}" class="full-width">answer 2</label>
+                <br>
+                <input type="radio" th:id="'third'+${pv}" name="answer" value="2">
+                <label th:for="'third'+${pv}" class="full-width">answer 3</label>
+                <br>
+                <input type="radio" th:id="'fourth'+${pv}" name="answer" value="3">
+                <label th:for="'fourth'+${pv}" class="full-width">answer 4</label>
+                <br>
+                <input type="radio" th:id="'fifth'+${pv}" name="answer" value="4">
+                <label th:for="'fifth'+${pv}" class="full-width">answer 5</label>
+            </div>
+
+            <div class="word font24" th:id="'regDate'+${pv}"></div>
+            <div class="word font24" th:id="'count'+${pv}"></div>
+		</div>
+
+        <div class="table-wrapper hide" th:id="'tableWrapper'+${pv}">
+			<div th:id="'table'+${pv}"></div>
+		</div>
+	</div>
+
+</section>
+</body>
+</html>
