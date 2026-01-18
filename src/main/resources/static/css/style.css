@@ -101,6 +101,10 @@ button:active {
     width: 100%;
 }
 
+.radio-group label.more-height {
+    padding: 16px 8px 16px 8px;
+}
+
 .radio-group input:checked + label {
     background-color: #fffc;
     color: #333c;
