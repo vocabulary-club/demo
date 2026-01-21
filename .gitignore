@@ -58,3 +58,5 @@ build/
 .vscode/
 
 src/main/resources/application.properties
+*.p12
+*.properties
