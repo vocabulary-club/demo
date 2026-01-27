@@ -67,30 +67,32 @@ var manageApp = {
         btnDelete.addEventListener("click", function() {
             const selected = manageApp.table.getSelectedData();
             if(selected.length) {
-                const data = {
-                    dic_id : selected[0].dic_id,
-                    eng_id : selected[0].eng_id,
-                    mon_id : selected[0].mon_id,
-                };
-                fetch("/api/manage/delete", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(function (response) {
-                    if (!response.ok) {
-                        throw new Error("HTTP error " + response.status);
-                    }
-                    return response.json();
-                })
-                .then(function (data) {
-                    manageApp.select();
-                })
-                .catch(function (error) {
-                    alert("Failed to save.");
-                });
+                if(confirm("Are you sure to delete?")) {
+                    const data = {
+                        dic_id : selected[0].dic_id,
+                        eng_id : selected[0].eng_id,
+                        mon_id : selected[0].mon_id,
+                    };
+                    fetch("/api/manage/delete", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error("HTTP error " + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        manageApp.select();
+                    })
+                    .catch(function (error) {
+                        alert("Failed to save.");
+                    });
+                }
             }
         });
         btnModalSave.addEventListener("click", function() {
